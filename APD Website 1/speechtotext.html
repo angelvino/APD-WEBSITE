@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>NOTES</title>
+        <link rel="icon" href="icon.jpg">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
+        
+        <style>
+        .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+        ul {
+    list-style: none;
+    padding: 0;
+    color:azure;
+}
+
+p {
+    color:black;
+}
+
+button:focus {
+    outline: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 100px 50px;
+    text-align: center;
+}
+
+.container h1 {
+    margin-bottom: 20px;
+}
+
+.page-description {
+    font-size: 1.1rem;
+    font-family: "Comic Sans MS";
+    margin: 0 auto;
+}
+
+.tz-link {
+    font-size: 1em;
+    color: #1da7da;
+    text-decoration: none;
+}
+
+.no-browser-support {
+    display: none;
+    font-size: 1.2rem;
+    color: #0c0402;
+    margin-top: 35px;
+}
+
+body {
+    background: url('speechtotext.jpg') no-repeat;
+    background-size: cover;
+    opacity: .88;
+    font-size: 200%;
+    font-family: "Comic Sans MS";
+
+}
+.app {
+    margin: 40px auto;
+    color:azure;
+}
+
+#note-textarea {
+    margin: 20px 0;
+    color:azure;
+}
+
+#recording-instructions {
+    margin: 15px auto 60px;
+}
+
+#notes {
+    padding-top: 20px;
+    color:azure;
+}
+
+.note .header {
+    font-size: 0.9em;
+    color:#331ef4;
+    margin-bottom: 10px;
+    font-family: "Comic Sans MS";
+}
+
+.note .delete-note,
+.note .listen-note {
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.note .content {
+    margin-bottom: 40px;
+}
+h3 {
+    color:black;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 50px 25px;
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+
+}   
+
+
+
+/* -- Demo ads -- */
+
+@media (max-width: 1200px) {
+    #bsaHolder{ display:none;}
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-family: "Comic Sans MS";
+}
+
+button {
+  padding: 20px;
+  padding-top: 8px;
+  padding-bottom: 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #331ef4;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+  font-family: "Comic Sans MS";
+}
+
+button:hover {
+  background-color: #331ef4;
+}
+
+button:disabled {
+  background-color: #331ef4;
+  color: white;
+  cursor: default;
+}
+
+#transcription {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Comic Sans MS";
+}
+        </style>
+    </head>
+
+    
+<body>
+<!-- navigation bar -->
+<nav class="navbar navbar-inverse" style="font-size: 80%">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage" style="color: beige">
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="user.html"><span class="glyphicon glyphicon-user"></span> Your Profile</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
+<div class="container-fluid bg-3 text-center"> 
+            <br><br><br>
+            <h1> <b>TAKE LECTURE NOTES</b></h1>
+
+            <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API.</h3>
+
+            <div class="app"> 
+                <h3><b>Add New Note</h3>
+                <div class="input-single">
+                    <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6" style="color: black"></textarea>
+                </div>         
+                <div class="container">
+                  <button id="startButton">Start Recording</button>
+                  <button id="stopButton" disabled>Stop Recording</button>
+                  <div id="transcription"></div>
+                </div>
+                <button id="save-note-btn" title="Save Note">Save Note</button>   
+                <p id="recording-instructions">Press the <strong>Start Recognition</strong> button and allow access.</p>
+                
+                <h3><b>My Notes</b></h3>
+                <ul id="notes"> <b>
+                    <li> 
+                        <p class="no-notes">You don't have any notes.</p>
+                    </li></b>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script> let startButton = document.getElementById("startButton");
+          let stopButton = document.getElementById("stopButton");
+          let transcription = document.getElementById("transcription");
+          let recognition = new webkitSpeechRecognition();
+          
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.lang = "en-US";
+          
+          startButton.addEventListener("click", () => {
+            recognition.start();
+            startButton.disabled = true;
+            stopButton.disabled = false;
+          });
+          
+          stopButton.addEventListener("click", () => {
+            recognition.stop();
+            startButton.disabled = false;
+            stopButton.disabled = true;
+          });
+          
+          recognition.addEventListener("result", (event) => {
+            let transcript = Array.from(event.results)
+              .map((result) => result.transcript)
+              .join("");
+            transcription.innerHTML = transcript;
+          });
+          
+          recognition.addEventListener("end", () => {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+          });
+        </script>
+
+    
+    </body>
+</html>
